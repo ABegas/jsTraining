@@ -11,10 +11,10 @@ msg.value = "";
 charLeft.innerHTML = charLimit;
 
 //calculate symbols
-var calculateCharts = function(){
+var calculateCharts = function(e){
     var charCount = msg.value.length;
     if(charCount  > charLimit){
-        return false;
+        e.preventDefault();
     }
     charTotal.innerHTML = charCount;
     charLeft.innerHTML  = charLimit - charCount;
