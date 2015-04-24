@@ -1,0 +1,3 @@
+function myName(){
+	return "Heizenberg";
+}
