@@ -12,48 +12,39 @@ var TextCounter = {
         this.textAreaLeft = document.querySelector('#js-message-left-symbols');
 
         this.events();
+
     },
 
-    events: function() {},
-    // ... put you methods here
+    events : function() {
+        this.textArea.addEventListener("keydown", this.disableCharts.bind(this));
+        this.textArea.addEventListener("keyup", this.calculateCharts.bind(this));
+        this.calculateCharts();
+    },
+
+    calculateCharts: function(e) {
+        var charCount = this.textArea.value.length;
+        if(charCount  > this.maxChar){
+            e.preventDefault();
+        }
+        this.textAreaTotal.innerHTML = charCount;
+        this.textAreaLeft.innerHTML  = this.maxChar - charCount;
+    },
+
+    disableCharts: function(event) {
+        var charCount = this.textArea.value.length;
+        var enableChars = [8, 16, 35, 36, 37, 38, 39, 40, 46];
+        var keyCode = (window.event) ? event.which : event.keyCode;
+        for(i = 0; i< enableChars.length; i++){
+            if(keyCode == enableChars[i]){
+                var isAvailable = true;
+                break;
+            }
+        }
+
+        if(charCount >= this.maxChar && !isAvailable){
+            event.preventDefault();
+        }
+    },
 };
 
-
-//set variables
-var textArea       = document.querySelector('#js-message'),
-    textAreaTotal      = document.querySelector('#js-message-left-total'),
-    textAreaLeft       = document.querySelector('#js-message-left-symbols'),
-    charLimit      = 10;
-
-//set start limit value into html
-textAreaLeft.innerHTML = charLimit;
-
-//calculate symbols
-var calculateCharts = function(e){
-    var charCount = textArea.value.length;
-    if(charCount  > charLimit){
-        e.preventDefault();
-    }
-    textAreaTotal.innerHTML = charCount;
-    textAreaLeft.innerHTML  = charLimit - charCount;
-}
-
-//disable typing
-var disableCharts = function(event){
-    var charCount = textArea.value.length;
-    var enableChars = [8, 16, 35, 36, 37, 38, 39, 40, 46];
-    for(i = 0; i< enableChars.length; i++){
-        if(event.keyCode == enableChars[i]){
-            var isAvailable = true;
-            break;
-        }
-    }
-
-    if(charCount >= charLimit && !isAvailable){
-        event.preventDefault();
-    }
-}
-
-textArea.addEventListener("keydown", disableCharts);
-textArea.addEventListener("keyup", calculateCharts);
-calculateCharts();
+TextCounter.init();
