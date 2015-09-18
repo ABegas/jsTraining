@@ -2,7 +2,7 @@
  * TextCounter
  */
 var TextCounter = {
-    maxChar: 10,
+    maxChar: 140,
     textArea: null,
     textAreaTotal: null,
     textAreaLeft: null,
@@ -33,9 +33,8 @@ var TextCounter = {
     disableCharts: function(event) {
         var charCount = this.textArea.value.length;
         var enableChars = [8, 16, 35, 36, 37, 38, 39, 40, 46];
-        var keyCode = (window.event) ? event.which : event.keyCode;
         for(i = 0; i< enableChars.length; i++){
-            if(keyCode == enableChars[i]){
+            if(event.keyCode == enableChars[i]){
                 var isAvailable = true;
                 break;
             }
