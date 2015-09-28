@@ -1,9 +1,9 @@
 var squaresGenerator = {
 
-    sqrCount: 100,
+    sqrCount: 16,
     sqrTag: "li",
-    clicksCountGenerate: 100,
-    clicksBackgroundChange: 25,
+    clicksCountGenerate: 10,
+    clicksBackgroundChange: 5,
     sqrCollection: null,
     clicksCount: null,
     clickedTarget: null,
