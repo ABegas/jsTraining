@@ -21,10 +21,6 @@
             user-select: none;
         }
 
-        .break {
-            clear: left;
-        }
-
         .main-table {
             float: left;
             margin: 0 20px 0;
@@ -35,37 +31,13 @@
             padding-top: 10px;
         }
 
-        .square {
-            background: #fff;
-        }
-
-        .main-table .square[data-show-result = 'false'] {
-            background: #fff;
-            text-indent: -9999px;
-        }
-
-        .square[data-click-counts-color = '1'] {
-            background: #FCF6A9;
-        }
-
-        .square[data-click-counts-color = '2'] {
-            background: #FCCF05;
-        }
-        .square[data-click-counts-color = '3'] {
-            background: #FC8505;
-        }
-
-        .square[data-click-counts-color = 'infinity'] {
-            background: #F50202;
-            color: #fff;
-        }
     </style>
 </head>
 <body>
 <ul class="main-table" id="squaresWrapper"></ul>
 <div class="buttons-wrap">
     <input id="generateButton" type="button" value="Generate Click" />
-    <input id="showResultButton" type="button" value="Show/Hide Result" />
+    <input id="showResultButton" type="button" value="Show Result" />
     <input id="resetButton" type="button" value="Reset" />
 </div>
 <script src="js/app.js" type="text/javascript"></script>

@@ -1,9 +1,8 @@
 var squaresGenerator = {
 
-    sqrCount: 100,
+    sqrCount: 36,
     sqrTag: "li",
-    clicksCountGenerate: 100,
-    clicksBackgroundChange: 25,
+    clicksCountGenerate: 5,
     sqrCollection: null,
     clicksCount: null,
     clickedTarget: null,
@@ -12,12 +11,14 @@ var squaresGenerator = {
     showResultButton: null,
     resetButton: null,
 
-    init: function(){
+    init: function(config){
         this.sqrWrap = document.getElementById('squaresWrapper');
         this.generateButton = document.getElementById('generateButton');
         this.showResultButton = document.getElementById('showResultButton');
         this.resetButton = document.getElementById('resetButton');
+        this.config = config;
 
+        this.checkConfigData();
         this.buildTable();
         this.addBreakClass();
 
@@ -32,6 +33,15 @@ var squaresGenerator = {
     },
 
     /**
+     * Check config values
+     */
+    checkConfigData: function(){
+        this.clicksCountGenerate = this.config.clicksCountGenerate || this.clicksCountGenerate;
+        this.sqrCount = this.config.sqrCount || this.sqrCount;
+        this.sqrTag = this.config.sqrTag || this.sqrTag;
+    },
+
+    /**
      * Build necessary DOM structure
      */
     buildTable: function(){
@@ -39,8 +49,7 @@ var squaresGenerator = {
             var sqrElem = document.createElement(this.sqrTag);
             sqrElem.className = "square";
             sqrElem.setAttribute('data-click-counts', '0');
-            sqrElem.setAttribute('data-click-counts-color', '0');
-            sqrElem.setAttribute('data-show-result', 'false');
+            sqrElem.setAttribute('data-background-num', '0');
             this.sqrWrap.appendChild(sqrElem);
         }
     },
@@ -53,7 +62,7 @@ var squaresGenerator = {
         var countSqrsInLine = Math.ceil(Math.sqrt(this.sqrCount));
         for (var j = 1; j < this.sqrCount; j++) {
             if(j % countSqrsInLine == 0) {
-                this.sqrCollection[j].className += " break";
+                this.sqrCollection[j].style.clear = "left";
             }
         }
     },
@@ -66,7 +75,7 @@ var squaresGenerator = {
         this.clickedTarget = e.target;
         if(this.clickedTarget.tagName === this.sqrTag.toUpperCase()){
             this.clickCounter();
-            this.setBackgroundNum();
+            this.setBackgroundColor();
         }
     },
 
@@ -79,21 +88,16 @@ var squaresGenerator = {
 
         //rewrite clicks count into data-click-counts parameter
         this.clickedTarget.setAttribute('data-click-counts', this.clicksCount);
-
-        //rewrite clicks count into square block
-        this.clickedTarget.innerHTML = this.clicksCount;
     },
 
-
     /**
-     * Set value for background color (clicksForBackground)
+     * Set style for background color from config
      */
-    setBackgroundNum: function(){
-        // value 4 - is a count of click sessions(background colors). For more colors just set value of colors and add styles for data selectors into css
-        if(this.clicksCount % this.clicksBackgroundChange == 0 && this.clicksCount < this.clicksBackgroundChange * 4){
-            this.clickedTarget.setAttribute('data-click-counts-color', (this.clicksCount / this.clicksBackgroundChange).toString());
-        }else if(this.clicksCount >= this.clicksBackgroundChange * 4){
-            this.clickedTarget.setAttribute('data-click-counts-color', 'infinity');
+    setBackgroundColor: function(){
+        for (var key in this.config.backgroundColors) {
+            if(this.clicksCount == key) {
+                this.clickedTarget.setAttribute('data-background-num', this.config.backgroundColors[key]);
+            }
         }
     },
 
@@ -112,12 +116,9 @@ var squaresGenerator = {
      * Show/hide results (bg color & clicks count)
      */
     showResult: function(){
-        for (var i = 0; i < this.sqrCount; i++) {
-            if(this.sqrCollection[i].getAttribute('data-show-result') == 'false'){
-                this.sqrCollection[i].setAttribute('data-show-result', 'true');
-            }else {
-                this.sqrCollection[i].setAttribute('data-show-result', 'false');
-            }
+        for (var j = 0; j < this.sqrCount; j++) {
+            this.sqrCollection[j].innerHTML = this.sqrCollection[j].getAttribute('data-click-counts');
+            this.sqrCollection[j].style.backgroundColor = this.sqrCollection[j].getAttribute('data-background-num');
         }
     },
 
@@ -127,10 +128,23 @@ var squaresGenerator = {
     resetResult: function(){
         for (var g = 0; g < this.sqrCount; g++) {
             this.sqrCollection[g].setAttribute('data-click-counts', '0');
-            this.sqrCollection[g].setAttribute('data-click-counts-color', '0');
+            this.sqrCollection[g].setAttribute('data-background-num', '0');
+            this.sqrCollection[g].style.backgroundColor = "#fff";
             this.sqrCollection[g].innerHTML = "";
         }
     }
 };
 
-squaresGenerator.init();
+squaresGenerator.init({
+    backgroundColors: {
+        5 : '#FCF6A9',
+        10 : '#FCCF05',
+        15 : '#FC8505',
+        20 : "#F50202"
+    },
+    sqrTag: "li",
+    clicksCountGenerate: 10,
+    sqrCount: 16
+});
+
+
