@@ -1,3 +1,0 @@
-function myName(){
-	return "Heizenberg";
-}
