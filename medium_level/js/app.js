@@ -3,6 +3,7 @@ var squaresGenerator = {
     sqrCount: 36,
     sqrTag: "li",
     clicksCountGenerate: 5,
+    errorMsgForShow: 'Error',
     sqrCollection: null,
     clicksCount: null,
     clickedTarget: null,
@@ -21,13 +22,16 @@ var squaresGenerator = {
         this.checkConfigData();
         this.buildTable();
         this.addBreakClass();
-
         this.events();
     },
 
+    /**
+     * EventListeners
+     */
     events: function() {
         (this.sqrWrap).addEventListener("click", this.clickEvent.bind(this), false);
         (this.generateButton).addEventListener("click", this.generateClick.bind(this), false);
+        (this.generateButton).addEventListener("click", this.isGenerateClicked.bind(this), false);
         (this.showResultButton).addEventListener("click", this.showResult.bind(this), false);
         (this.resetButton).addEventListener("click", this.resetResult.bind(this), false);
     },
@@ -39,18 +43,27 @@ var squaresGenerator = {
         this.clicksCountGenerate = this.config.clicksCountGenerate || this.clicksCountGenerate;
         this.sqrCount = this.config.sqrCount || this.sqrCount;
         this.sqrTag = this.config.sqrTag || this.sqrTag;
+        this.errorMsgForShow = this.config.errorMsgForShow || this.errorMsgForShow;
+    },
+
+    /**
+     * Check if Generate button was clicked
+     */
+    isGenerateClicked: function() {
+        this.generateClicked = true || false;
     },
 
     /**
      * Build necessary DOM structure
      */
     buildTable: function(){
-        for (var i = 0; i < this.sqrCount; i++) {
-            var sqrElem = document.createElement(this.sqrTag);
+        var sqrElem = document.createElement(this.sqrTag);
             sqrElem.className = "square";
             sqrElem.setAttribute('data-click-counts', '0');
             sqrElem.setAttribute('data-background-num', '0');
-            this.sqrWrap.appendChild(sqrElem);
+
+        for (var i = 0; i < this.sqrCount; i++) {
+            this.sqrWrap.appendChild(sqrElem.cloneNode());
         }
     },
 
@@ -97,6 +110,7 @@ var squaresGenerator = {
         for (var key in this.config.backgroundColors) {
             if(this.clicksCount == key) {
                 this.clickedTarget.setAttribute('data-background-num', this.config.backgroundColors[key]);
+
             }
         }
     },
@@ -116,9 +130,14 @@ var squaresGenerator = {
      * Show/hide results (bg color & clicks count)
      */
     showResult: function(){
-        for (var j = 0; j < this.sqrCount; j++) {
-            this.sqrCollection[j].innerHTML = this.sqrCollection[j].getAttribute('data-click-counts');
-            this.sqrCollection[j].style.backgroundColor = this.sqrCollection[j].getAttribute('data-background-num');
+        if(this.generateClicked){
+            for (var j = 0; j < this.sqrCount; j++) {
+                if (this.sqrCollection[j].getAttribute('data-click-counts') > 0){
+                    this.sqrCollection[j].innerHTML = this.sqrCollection[j].getAttribute('data-click-counts');
+                }
+                this.sqrCollection[j].style.backgroundColor = this.sqrCollection[j].getAttribute('data-background-num');
+            }
+
         }
     },
 
@@ -144,7 +163,8 @@ squaresGenerator.init({
     },
     sqrTag: "li",
     clicksCountGenerate: 10,
-    sqrCount: 16
+    sqrCount: 16,
+    errorMsgForShow: 'Please, enter "Generate" button firstly'
 });
 
 
