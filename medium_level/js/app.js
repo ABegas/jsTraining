@@ -85,10 +85,14 @@ var squaresGenerator = {
      * @param e Event
      */
     clickEvent: function(e){
-        this.clickedTarget = e.target;
-        if(this.clickedTarget.tagName === this.sqrTag.toUpperCase()){
-            this.clickCounter();
-            this.setBackgroundColor();
+        if(this.generateClicked){
+            this.clickedTarget = e.target;
+            if(this.clickedTarget.tagName === this.sqrTag.toUpperCase()){
+                this.clickCounter();
+                this.setBackgroundColor();
+            }
+        }else{
+            alert(this.errorMsgForShow);
         }
     },
 
@@ -119,6 +123,7 @@ var squaresGenerator = {
      * Click generator
      */
     generateClick: function(){
+        this.generateClicked = true;
         this.sqrCollection = this.sqrWrap.getElementsByTagName(this.sqrTag);
         for(var q = 1; q <= this.clicksCountGenerate; q++) {
             var randomNum = Math.floor((Math.random() * this.sqrCollection.length));
@@ -138,6 +143,8 @@ var squaresGenerator = {
                 this.sqrCollection[j].style.backgroundColor = this.sqrCollection[j].getAttribute('data-background-num');
             }
 
+        }else {
+            alert(this.errorMsgForShow);
         }
     },
 
@@ -151,6 +158,7 @@ var squaresGenerator = {
             this.sqrCollection[g].style.backgroundColor = "#fff";
             this.sqrCollection[g].innerHTML = "";
         }
+        this.generateClicked = false;
     }
 };
 
