@@ -174,5 +174,3 @@ squaresGenerator.init({
     sqrCount: 16,
     errorMsgForShow: 'Please, enter "Generate" button firstly'
 });
-
-

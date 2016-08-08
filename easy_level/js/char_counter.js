@@ -2,7 +2,7 @@
  * TextCounter
  */
 var TextCounter = {
-    maxChar: 140,
+    maxChar: 10,
     textArea: null,
     textAreaTotal: null,
     textAreaLeft: null,
