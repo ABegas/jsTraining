@@ -3,8 +3,7 @@
 <head>
     <meta charset=utf-8>
     <link rel="stylesheet" href="css/styles.css">
-
-
+    <script src="js/app.js" type="text/javascript" defer></script>
 </head>
 <body>
     <h1>Table Editor</h1>
@@ -14,11 +13,11 @@
     </div>
     <div class="data-table">
         <ul class="data-table-heading">
-            <li class="table-id">id<i>&#9660;</i></li>
-            <li class="table-name">Name<i>&#9660;</i></li>
-            <li class="table-qty">Qty<i>&#9660;</i></li>
-            <li class="table-availability">Availability</li>
-            <li class="table-delete">Delete</li>
+            <li class="table-id-heading">id<i>&#9660;</i></li>
+            <li class="table-name-heading">Name<i>&#9660;</i></li>
+            <li class="table-qty-heading">Qty<i>&#9660;</i></li>
+            <li class="table-availability-heading">Availability</li>
+            <li class="table-delete-heading">Delete</li>
         </ul>
         <div id="dataTable" class="data-table-info"></div>      
     </div>
@@ -29,7 +28,7 @@
         <li id="clearTableButton" class="blue">Clear table</li>
         <li id="exportTableButton" class="orange last-button">Export table</li>
     </ul>
-    <div id="addDataFrom" class="add-row-block">
+    <div id="addDataForm" class="add-row-block">
         <h1>Add New Row</h1>
         <form id="addRowForm" name="itemForm">
             <div class="form-fields-wrapper">
@@ -55,6 +54,6 @@
             <input type="submit" id="addDataButton" class="add-row-form-button blue" value="Add row" />
         </form>
     </div>
-    <script src="js/app.js" type="text/javascript"></script>
+    
 </body>
 </html>

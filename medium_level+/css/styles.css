@@ -79,6 +79,7 @@ i {
     width: 100%;
     border-top: 1px solid #ccc;
     padding: 10px;
+    box-sizing: border-box;
 }
 
 .data-table ul li{
@@ -96,6 +97,7 @@ i {
 
 .data-table-info ul {
     position: relative;
+    height: 20px;
     top: 10px;
     opacity: 0;
     transform: scale(1.2);
@@ -104,33 +106,44 @@ i {
     -moz-transition: all 0.2s ease-out;
 }
 
-.data-table-info .data-row {
+.data-table-info ul.data-row {
     top: 0;
     opacity: 1;
     transform: scale(1);
 }
 
-.data-table-info ul.deleting-row {
-    opacity: 0;
-    transform: scale(1.2);
+@keyframes delete-row {
+    0%   {transform: translateX(0); opacity: 1;}
+    35%  {transform: translateX(30px); opacity: 1;}
+    100% {transform: translateX(-900px); opacity: 0.2;}
 }
 
+.data-table-info ul.deleting-row {
+    animation-name: delete-row;
+    animation-duration: 0.5s;
+}
+
+.table-name-heading,
 .table-name {
     width: 50%;
 }
 
+.table-id-heading,
 .table-id {
     width: 5%;
 }
 
+.table-qty-heading,
 .table-qty {
     width: 15%;
 }
 
+.table-availability-heading,
 .table-availability {
     width: 15%;
 }
 
+.table-delete-heading,
 .table-delete {
     width: 15%;
 }

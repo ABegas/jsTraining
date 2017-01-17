@@ -9,30 +9,29 @@ var tableEditor = {
     rowIdBlock : null,
     rowNameBlock : null,
     rowNameValue : null,
-    rowQtyBlcok : null,
+    rowQtyBlock : null,
     rowAvailabilityBlock : null,
     rowDeleteBlock: null,
 
     //Caption
-    addDataFrom : null,
+    addDataForm : null,
     showDataFormButton : null,
     addDataButton : null,
     clearDataButton : null,
     deleteRowButton : null,
 
     init: function(config){
-        this.dataTable = document.getElementById('dataTable');
-        this.addDataFrom = document.getElementById('addDataFrom');
-        this.showDataFormButton = document.getElementById('showDataFormButton');
-        this.clearDataButton = document.getElementById('clearTableButton');
-        this.deleteRowButton = document.getElementById('deleteRowButton');
+        this.dataTable = document.getElementById("dataTable");
+        this.addDataForm = document.getElementById("addDataForm");
+        this.showDataFormButton = document.getElementById("showDataFormButton");
+        this.clearDataButton = document.getElementById("clearTableButton");
+        this.deleteRowButton = document.getElementById("deleteRowButton");
 
-        this.addDataButton = document.getElementById('addDataButton');
+        this.addDataButton = document.getElementById("addDataButton");
 
         this.config = config;
 
         this.checkConfigData();
-        
         
         this.events();
     },
@@ -42,11 +41,9 @@ var tableEditor = {
      */
     events: function() {
         (this.showDataFormButton).addEventListener("click", this.showFormBlock.bind(this), false);
-        
         (this.addDataButton).addEventListener("click", this.addDataRow.bind(this), false);
         (this.clearDataButton).addEventListener("click", this.clearData.bind(this), false);
         (this.deleteRowButton).addEventListener("click", this.deleteRow.bind(this), false);
-
     },
 
     /**
@@ -60,29 +57,31 @@ var tableEditor = {
      * Show block with Form
      */
     showFormBlock: function() {
-        this.addDataFrom.classList.add('visible');
+        this.addDataForm.classList.add("visible");
     },
 
     /**
      * Set row ID 
      */
     setRowId: function() {
+        this.rowIdBlock = document.createElement("li");
+        this.rowIdBlock.classList.add("table-id");
 
-        this.rowIdBlock = document.createElement('li');
-        this.rowIdBlock.classList.add('table-id');
-        this.rowIdBlock.innerHTML = this.dataTable.children.length++;
-        this.tableRow.appendChild(this.rowIdBlock);
+        var idBlocks = document.getElementsByClassName("table-id");
+        var lastBlockId = idBlocks[idBlocks.length - 1];
+        this.rowIdBlock.innerHTML += !lastBlockId || isNaN(parseInt(lastBlockId.innerHTML)) ? 1 : parseInt(lastBlockId.innerHTML) + 1;
         
+        this.tableRow.appendChild(this.rowIdBlock);
     },
 
     /**
      * Set row Name 
      */
     setRowName: function() {
-        this.rowNameBlock = document.createElement('li');
-        this.rowNameBlock.classList.add('table-name');
+        this.rowNameBlock = document.createElement("li");
+        this.rowNameBlock.classList.add("table-name");
 
-        this.rowNameValue = document.forms['itemForm']['name'].value;
+        this.rowNameValue = document.forms["itemForm"]["name"].value;
 
         this.rowNameBlock.innerHTML = this.rowNameValue;
 
@@ -93,10 +92,10 @@ var tableEditor = {
      * Set row Qty 
      */
     setRowQty: function() {
-        this.rowQtyBlock = document.createElement('li');
-        this.rowQtyBlock.classList.add('table-qty');
+        this.rowQtyBlock = document.createElement("li");
+        this.rowQtyBlock.classList.add("table-qty");
 
-        this.rowQtyBlock.innerHTML = document.forms['itemForm']['qty'].value;
+        this.rowQtyBlock.innerHTML = document.forms["itemForm"]["qty"].value;
 
         this.tableRow.appendChild(this.rowQtyBlock);
     },
@@ -105,14 +104,10 @@ var tableEditor = {
      * Set row Availability 
      */
     setRowAvailability: function() {
-        this.rowAvailabilityBlock = document.createElement('li');
-        this.rowAvailabilityBlock.classList.add('table-availability');
+        this.rowAvailabilityBlock = document.createElement("li");
+        this.rowAvailabilityBlock.classList.add("table-availability");
         
-        if(document.getElementById('fieldAvailability').checked){
-            this.rowAvailabilityBlock.innerHTML = "yes" 
-        }else {
-            this.rowAvailabilityBlock.innerHTML = "no"
-        }
+        this.rowAvailabilityBlock.innerHTML = document.getElementById("fieldAvailability").checked ? "yes" : "no";
         
         this.tableRow.appendChild(this.rowAvailabilityBlock);
     },
@@ -121,8 +116,8 @@ var tableEditor = {
      * Add Delete option
      */
     setRowDelete: function() {
-        this.rowDeleteBlock = document.createElement('li');
-        this.rowDeleteBlock.classList.add('table-delete');
+        this.rowDeleteBlock = document.createElement("li");
+        this.rowDeleteBlock.classList.add("table-delete");
         
         this.rowDeleteBlock.innerHTML = "<input type='checkbox' class='delete-checkbox' />"    
         
@@ -136,7 +131,7 @@ var tableEditor = {
     addDataRow: function(e) {
         e.preventDefault();
         
-        this.tableRow = document.createElement('ul');
+        this.tableRow = document.createElement("ul");
         this.dataTable.appendChild(this.tableRow);
         
         this.setRowId();
@@ -148,38 +143,32 @@ var tableEditor = {
 
         // To add some animation via css3
         setTimeout(function(){
-            tableEditor.tableRow.classList.add('data-row');
+            tableEditor.tableRow.classList.add("data-row");
         }, 100);
-        
     },
 
     /**
      * Delete selected rows
      */
     deleteRow: function() {
-        var deleteCheckbox = this.dataTable.getElementsByClassName('delete-checkbox');
-        var arr = this.dataTable.getElementsByClassName('data-row');
-        var elemsArray = [];
+        var deleteCheckbox = this.dataTable.getElementsByClassName("delete-checkbox");
+        var dataRows = this.dataTable.getElementsByClassName("data-row");
+        var DataRowsForDelete = [];
 
-        for (var i = 0; i < arr.length; i++) {
-            if(!deleteCheckbox[i].checked){
-                elemsArray.push(arr[i]);    
-            }else {
-                // To add some animation via ccs3
-                arr[i].classList.add('deleting-row');
+        for (var i = 0; i < dataRows.length; i++) {
+            if(deleteCheckbox[i].checked){
+                //Add class for css animation
+                dataRows[i].classList.add("deleting-row");
+                DataRowsForDelete.push(dataRows[i]);
             }
         }
         
         // Set timeout for css animation
         setTimeout(function(){
-            this.dataTable.innerHTML = "";
-
-            elemsArray.forEach(function(item, j, elemsArray) {
-                tableEditor.dataTable.appendChild(item);
+            DataRowsForDelete.forEach(function(item, j, DataRowsForDelete) {
+                this.dataTable.removeChild(item);
             });
-        }, 300);
-
-        
+        }, 400);
     },
 
     /**
@@ -187,11 +176,11 @@ var tableEditor = {
      */
     clearData: function() {
         // To add some animation via css3
-        this.dataTable.classList.add('deleting-data-table');
+        this.dataTable.classList.add("deleting-data-table");
     
         setTimeout(function(){
             this.dataTable.innerHTML = "";
-            this.dataTable.classList.remove('deleting-data-table');
+            this.dataTable.classList.remove("deleting-data-table");
         }, 300);
     }
 };
