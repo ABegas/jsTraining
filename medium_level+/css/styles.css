@@ -1,0 +1,274 @@
+body {
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+input,
+.name-form input {
+    transition: all 0.3s;
+    padding: 0;
+}
+
+select:-moz-focusring { 
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+}
+
+input:focus,
+.name-form input:focus {
+    outline: none;
+    border: 1px solid #888;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+.name-filter {
+    padding-left: 50px;
+    text-align: center;
+    display: inline-block;
+}
+
+.name-filter-field,
+.name-form input,
+.qty-form select {
+    margin-top: 10px;
+    display: block;
+    height: 35px;
+    width: 320px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    text-indent: 10px;
+    box-shadow: inset 0px 1px 3px 1px #f1f1f1;
+}
+
+/* Data Table */
+
+.data-table {
+    margin-top: 30px;
+    width: 600px;
+}
+
+i {
+    font-style: normal;
+    font-size: 12px;
+    padding-left: 3px;
+}
+
+.data-table-info {
+    opacity: 1;
+    transition: all 0.2s ease-out;
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+}
+
+.deleting-data-table {
+    transform: scale(1.2);
+    opacity: 0;
+}
+
+.data-table-info ul:nth-child(odd) {
+    background: #f1f1f1;
+}
+
+.data-table ul {
+    display: table;
+    width: 100%;
+    border-top: 1px solid #ccc;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.data-table ul li{
+    display: table-cell;
+    text-align: center;
+}
+
+.data-table ul li:first-child {
+    text-align: left;
+}
+
+.data-table-heading {
+    font-weight: bold;
+}
+
+.data-table-info ul {
+    position: relative;
+    height: 20px;
+    top: 10px;
+    opacity: 0;
+    transform: scale(1.2);
+    transition: all 0.2s ease-out;
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+}
+
+.data-table-info ul.data-row {
+    top: 0;
+    opacity: 1;
+    transform: scale(1);
+}
+
+@keyframes delete-row {
+    0%   {transform: translateX(0); opacity: 1;}
+    35%  {transform: translateX(30px); opacity: 1;}
+    100% {transform: translateX(-900px); opacity: 0.2;}
+}
+
+.data-table-info ul.deleting-row {
+    animation-name: delete-row;
+    animation-duration: 0.5s;
+}
+
+.table-name-heading,
+.table-name {
+    width: 50%;
+}
+
+.table-id-heading,
+.table-id {
+    width: 5%;
+}
+
+.table-qty-heading,
+.table-qty {
+    width: 15%;
+}
+
+.table-availability-heading,
+.table-availability {
+    width: 15%;
+}
+
+.table-delete-heading,
+.table-delete {
+    width: 15%;
+}
+
+
+/*Caption bar*/
+
+.caption-menu {
+    margin-top: 40px;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+.caption-menu li {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 0 -2px;
+    cursor: pointer;
+}
+
+.first-button {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-radius: 3px 0 0 3px;
+}
+
+.last-button {
+    border-radius: 0 3px 3px 0;    
+}
+
+.green,
+.red,
+.blue,
+.orange {
+    color: #fff;
+}
+
+.green {
+    background: #5cb85c;
+    border-top: 1px solid #5cb85c;
+    border-bottom: 1px solid #5cb85c;
+}
+
+.red {
+    background: #d9534f;
+    border-top: 1px solid #d9534f;
+    border-bottom: 1px solid #d9534f;
+}
+
+.blue {
+    background: #337ab7;
+    border-top: 1px solid #337ab7;
+    border-bottom: 1px solid #337ab7;
+}
+
+.orange {
+    background: #f0ad4e;
+    border-top: 1px solid #f0ad4e;
+    border-bottom: 1px solid #f0ad4e;
+    border-right: 1px solid #f0ad4e;
+}
+
+/* Form */
+
+.add-row-block {
+    position: relative;
+    top: 20px;
+    width: 500px;
+    margin-top: 40px;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.2s ease-out;
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+}
+
+.add-row-block.visible {
+    top: 0;
+    height: auto;
+    opacity: 1;
+}
+        
+.form-fields-wrapper {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.form-fields-wrapper > div {
+    padding: 15px;
+}
+
+.name-form,
+.qty-form {
+    border-bottom: 1px solid #ccc;            
+}
+
+.name-form label,
+.qty-form label {
+    font-weight: bold;
+}
+
+.name-form input,
+.qty-form select {
+    width: 100%;
+}
+
+.add-row-form-button {
+    margin-top: 20px;
+    border: none;
+    outline: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.add-row-form-button:focus,
+select {
+    outline: none;
+    border: none;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    padding-top: 5px;
+}

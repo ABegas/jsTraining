@@ -1,0 +1,59 @@
+<!doctype HTML>
+<html>
+<head>
+    <meta charset=utf-8>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/app.js" type="text/javascript" defer></script>
+</head>
+<body>
+    <h1>Table Editor</h1>
+    <div class="name-filter">
+        <label>Filter by name</label>
+        <input type="field" name="filter" class="name-filter-field" />
+    </div>
+    <div class="data-table">
+        <ul class="data-table-heading">
+            <li class="table-id-heading">id<i>&#9660;</i></li>
+            <li class="table-name-heading">Name<i>&#9660;</i></li>
+            <li class="table-qty-heading">Qty<i>&#9660;</i></li>
+            <li class="table-availability-heading">Availability</li>
+            <li class="table-delete-heading">Delete</li>
+        </ul>
+        <div id="dataTable" class="data-table-info"></div>      
+    </div>
+    <ul class="caption-menu">
+        <li id="showDataFormButton" class="first-button">Add new row</li>
+        <li id="deleteRowButton" class="red">Delete row</li>
+        <li id="demoDataButton" class="green">Demo data</li>
+        <li id="clearTableButton" class="blue">Clear table</li>
+        <li id="exportTableButton" class="orange last-button">Export table</li>
+    </ul>
+    <div id="addDataFormContainer" class="add-row-block">
+        <h1>Add New Row</h1>
+        <form id="addRowForm" name="itemForm">
+            <div class="form-fields-wrapper">
+                <div class="name-form">
+                    <label for="fieldName">Name</label>
+                    <input type="text" class="required" name="name" placeholder="Some Name" value="" />
+                </div>
+                <div class="qty-form">
+                    <label for="fieldQty">Qty</label>
+                    <select class="required" name="qty">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+                <div class="availability-form">
+                    <input type="checkbox" value="" id="fieldAvailability">
+                    <label for="fieldAvailability">Availability</label>
+                </div>
+            </div>      
+            <input type="submit" id="addDataButton" class="add-row-form-button blue" value="Add row" />
+        </form>
+    </div>
+    
+</body>
+</html>
